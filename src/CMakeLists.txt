@@ -1,6 +1,6 @@
 set(lucide_resources
-    fonts/lucide.ttf
-    data/lucide_codepoints.js
+    assets/lucide.ttf
+    assets/lucide_codepoints.js
 )
 
 set_source_files_properties(

@@ -6,7 +6,7 @@ Basic.ScrollBar {
     id: control
 
     implicitWidth: 12
-    policy: ScrollBar.AsNeeded
+    policy: Basic.ScrollBar.AsNeeded
     minimumSize: 0.12
 
     background: Rectangle {

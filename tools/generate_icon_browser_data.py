@@ -14,7 +14,7 @@ def make_label(name: str) -> str:
 def main() -> None:
     repo_root = Path(__file__).resolve().parent.parent
     src_json = repo_root / "third_party" / "lucide-font" / "info.json"
-    out_js = repo_root / "examples" / "icon-browser" / "data" / "lucide_browser_data.js"
+    out_js = repo_root / "examples" / "icon-browser" / "assets" / "lucide_browser_data.js"
 
     mapping = json.loads(src_json.read_text(encoding="utf-8"))
     if not isinstance(mapping, dict):

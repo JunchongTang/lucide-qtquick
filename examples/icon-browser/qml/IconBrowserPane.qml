@@ -1,6 +1,8 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
+import "browser" as Browser
+import "components" as Components
 
 Rectangle {
     id: root
@@ -28,7 +30,7 @@ Rectangle {
         anchors.margins: 12
         spacing: 10
 
-        BrowserSearchBar {
+        Browser.BrowserSearchBar {
             Layout.fillWidth: true
             text: root.searchText
             textFont: root.textFont
@@ -53,7 +55,7 @@ Rectangle {
             flickableDirection: Flickable.VerticalFlick
             clip: true
 
-            ScrollBar.vertical: BrowserGridScrollBar {
+            ScrollBar.vertical: Components.Scroll {
             }
 
             ScrollBar.horizontal: ScrollBar {
@@ -66,7 +68,7 @@ Rectangle {
                 width: gridView.cellWidth
                 height: gridView.cellHeight
 
-                IconGridCard {
+                Browser.IconGridCard {
                     anchors.fill: parent
                     anchors.margins: 6
                     iconData: modelData

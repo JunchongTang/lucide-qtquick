@@ -1,6 +1,6 @@
 pragma Singleton
 import QtQuick
-import "data/lucide_codepoints.js" as Codepoints
+import "assets/lucide_codepoints.js" as Codepoints
 
 Item {
     id: root
@@ -23,6 +23,6 @@ Item {
 
     FontLoader {
         id: fontLoader
-        source: Qt.resolvedUrl("fonts/lucide.ttf")
+        source: Qt.resolvedUrl("assets/lucide.ttf")
     }
 }

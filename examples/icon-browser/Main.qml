@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import LucideIcons 1.0
-import "data/lucide_browser_data.js" as BrowserData
+import "assets/lucide_browser_data.js" as BrowserData
 import "qml"
 
 ApplicationWindow {
@@ -68,14 +68,28 @@ ApplicationWindow {
         applyFilter()
     }
 
-    RowLayout {
+    SplitView {
         anchors.fill: parent
         anchors.margins: 12
-        spacing: 10
+        orientation: Qt.Horizontal
+
+        handle: Item {
+            implicitWidth: 10
+            //color: "transparent"
+
+            // Rectangle {
+            //     anchors.centerIn: parent
+            //     width: 1
+            //     height: parent.height - 16
+            //     radius: 1
+            //     color: "#d9dde3"
+            // }
+        }
 
         BrowserSidebar {
-            Layout.preferredWidth: 248
-            Layout.fillHeight: true
+            SplitView.fillHeight: true
+            SplitView.minimumWidth: 176
+            SplitView.preferredWidth: 196
             displayFont: window.displayFont
             textFont: window.textFont
             selectedIcon: window.selectedIcon
@@ -108,8 +122,9 @@ ApplicationWindow {
         }
 
         IconBrowserPane {
-            Layout.fillWidth: true
-            Layout.fillHeight: true
+            SplitView.fillWidth: true
+            SplitView.fillHeight: true
+            SplitView.minimumWidth: 420
             textFont: window.textFont
             searchText: window.searchText
             visibleIcons: window.visibleIcons

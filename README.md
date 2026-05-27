@@ -1,38 +1,71 @@
 # lucide-qtquick
 
-一个面向 Qt Quick / QML 的 Lucide 图标封装库。
+一个面向 Qt Quick / QML 的 Lucide 图标模块，适合通过源码方式接入别的 Qt 工程。
 
-这个仓库将 Lucide 图标整理为一个适合 Qt 项目集成的 QML 模块。开发者可以通过 CMake 将其接入工程，在 QML 中直接使用 Lucide 图标，而不需要自行处理字体加载、图标名到字形的映射和资源打包。
+## 环境要求
 
-## 简介
+- CMake 3.21+
+- Qt 6.5+
+- C++17
 
-- 面向 Qt Quick / QML 使用场景。
-- 以 CMake 集成为主要接入方式。
-- 提供 Lucide 图标在 QML 中的统一封装。
-- 控制最终模块的体积和资源占用。
+## 集成
 
-## 设计原则
+把仓库放进你的工程后，通过 `add_subdirectory(...)` 引入：
 
-仓库会使用 Lucide 字体包和相关映射数据，但完整的上游字体包内容只作为数据源保留，不会原样全部打进最终模块。
+```cmake
+find_package(Qt6 6.5 REQUIRED COMPONENTS Quick Qml)
 
-最终打包时只保留运行必需的内容，例如：
+qt_standard_project_setup()
 
-- 必需的字体文件。
-- 图标名称到字形的映射数据。
-- QML 模块本身的实现文件。
+set(LUCIDE_QTQUICK_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
+add_subdirectory(third_party/lucide-qtquick)
 
-这样做可以：
+qt_add_executable(MyApp
+    main.cpp
+)
 
-- 降低库体积。
-- 避免引入与运行无关的上游文件。
-- 控制资源占用，让模块更适合作为项目依赖长期维护。
+qt_add_qml_module(MyApp
+    URI MyApp
+    VERSION 1.0
+    QML_FILES
+        Main.qml
+)
 
-## 仓库定位
+target_link_libraries(MyApp
+    PRIVATE
+        Qt6::Quick
+        LucideIcons
+        LucideIconsplugin
+)
+```
 
-如果你想在 Qt Quick 项目里使用 Lucide 图标，这个仓库提供的是一层适合工程集成的封装，而不是简单保存一份字体包副本。
+## 使用
 
-它关注的是：
+```qml
+import QtQuick
+import LucideIcons 1.0
 
-- 开发者如何快速接入。
-- 图标如何在 QML 中直接使用。
-- 图标资源如何按需整理和打包。
+Rectangle {
+    width: 120
+    height: 120
+    color: "white"
+
+    LucideIcon {
+        anchors.centerIn: parent
+        name: "search"
+        size: 28
+        color: "#0071e3"
+    }
+}
+```
+
+也可以使用 `Lucide` 单例：
+
+- `Lucide.glyph(name)`
+- `Lucide.hasGlyph(name)`
+- `Lucide.iconNames()`
+- `Lucide.family`
+
+## 说明
+
+当前仓库主要面向源码引入，不是安装式发布包。

@@ -1,5 +1,4 @@
 import QtQuick
-import LucideIcons 1.0
 
 Item {
     id: root

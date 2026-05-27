@@ -13,7 +13,7 @@ qt_policy(SET QTP0001 NEW)
 
 qt_standard_project_setup()
 
-add_subdirectory(src/LucideIcons)
+add_subdirectory(src)
 
 if(LUCIDE_QTQUICK_BUILD_EXAMPLES)
     add_subdirectory(examples/icon-browser)

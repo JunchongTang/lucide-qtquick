@@ -1,19 +1,18 @@
 # lucide-qtquick
 
-**English** | [简体中文](README.zh-CN.md)
+[English](README.md) | **简体中文**
 
-A [Lucide](https://lucide.dev) icon module for Qt Quick / QML, meant to be consumed
-from source in other Qt projects.
+一个面向 Qt Quick / QML 的 [Lucide](https://lucide.dev) 图标模块,适合通过源码方式接入别的 Qt 工程。
 
-## Requirements
+## 环境要求
 
 - CMake 3.21+
 - Qt 6.5+
 - C++17
 
-## Integration
+## 集成
 
-Drop the repository into your project and pull it in with `add_subdirectory(...)`:
+把仓库放进你的工程后,通过 `add_subdirectory(...)` 引入:
 
 ```cmake
 find_package(Qt6 6.5 REQUIRED COMPONENTS Quick Qml)
@@ -42,7 +41,7 @@ target_link_libraries(MyApp
 )
 ```
 
-## Usage
+## 使用
 
 ```qml
 import QtQuick
@@ -62,18 +61,17 @@ Rectangle {
 }
 ```
 
-You can also use the `Lucide` singleton:
+也可以使用 `Lucide` 单例:
 
 - `Lucide.glyph(name)`
 - `Lucide.hasGlyph(name)`
 - `Lucide.iconNames()`
 - `Lucide.family`
 
-## Notes
+## 说明
 
-This repository is intended for source-based integration; it is not published as an
-installable package.
+当前仓库主要面向源码引入,不是安装式发布包。
 
-## License
+## 许可
 
-Icons are from [Lucide](https://lucide.dev) (ISC License). See [LICENSE](LICENSE).
+图标来自 [Lucide](https://lucide.dev)(ISC 许可证)。见 [LICENSE](LICENSE)。

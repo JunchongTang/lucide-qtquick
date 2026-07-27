@@ -128,7 +128,7 @@ Rectangle {
                     description: qsTr("Choose what each grid card should expose.")
                     textFont: root.textFont
 
-                    // 控制图标卡片是否显示图标名称。
+                    // Controls whether icon cards show the icon name.
                     RowLayout {
                         Layout.fillWidth: true
                         spacing: 8
@@ -164,7 +164,7 @@ Rectangle {
                         }
                     }
 
-                    // 控制图标卡片是否显示码点值。
+                    // Controls whether icon cards show the codepoint value.
                     RowLayout {
                         Layout.fillWidth: true
                         spacing: 8

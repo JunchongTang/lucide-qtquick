@@ -1,146 +1,120 @@
+pragma ComponentBehavior: Bound
+
 import QtQuick
-import QtQuick.Controls
-import QtQuick.Layouts
-import LucideIcons 1.0
-import "assets/lucide_browser_data.js" as BrowserData
-import "qml"
+import QtQuick.Window
+import LucideIcons
 
-ApplicationWindow {
-    id: window
-
-    width: 1120
-    height: 680
+// Minimal Lucide icon browser: a search box on top and a grid of every icon
+// below. Mirrors the layout of lucide.dev, kept to a single file for clarity.
+Window {
+    id: win
+    width: 960
+    height: 640
     visible: true
-    title: "Lucide Icon Browser"
+    color: "#ffffff"
+    title: qsTr("Lucide Icons")
 
-    property string searchText: ""
-    property var visibleIcons: []
-    property var selectedIcon: null
-    property int iconSize: 22
-    property int iconWeight: Font.Normal
-    property bool showIconName: true
-    property bool showCodepoint: false
-    readonly property int iconCount: visibleIcons ? visibleIcons.length : 0
-    readonly property bool hasSelection: selectedIcon !== null
-    readonly property string displayFont: ""
-    readonly property string textFont: ""
+    readonly property var allIcons: Lucide.iconNames()
+    property string query: ""
+    readonly property var shown: query.length === 0
+        ? allIcons
+        : allIcons.filter(function (n) { return n.indexOf(query) !== -1 })
 
-    color: "#f5f5f7"
-
-    function applyFilter() {
-        visibleIcons = BrowserData.filteredIcons(searchText)
-
-        if (visibleIcons.length === 0) {
-            selectedIcon = null
-            return
-        }
-
-        if (!selectedIcon) {
-            selectedIcon = visibleIcons[0]
-            return
-        }
-
-        for (var index = 0; index < visibleIcons.length; ++index) {
-            if (visibleIcons[index].name === selectedIcon.name)
-                return
-        }
-
-        selectedIcon = visibleIcons[0]
-    }
-
-    function iconSnippet(icon) {
-        if (!icon)
-            return ""
-
-        var snippet = "LucideIcon {\n"
-                + "    name: \"" + icon.name + "\"\n"
-                + "    size: " + iconSize + "\n"
-
-        if (iconWeight !== Font.Normal)
-            snippet += "    weight: " + iconWeight + "\n"
-
-        snippet += "}"
-
-        return snippet
-    }
-
-    Component.onCompleted: {
-        applyFilter()
-    }
-
-    SplitView {
+    Column {
         anchors.fill: parent
-        anchors.margins: 12
-        orientation: Qt.Horizontal
+        anchors.margins: 24
+        spacing: 20
 
-        handle: Item {
-            implicitWidth: 10
-            //color: "transparent"
+        // Search box
+        Rectangle {
+            id: searchBox
+            width: parent.width
+            height: 52
+            radius: 12
+            color: "#f4f4f5"
+            border.width: search.activeFocus ? 1 : 0
+            border.color: "#d4d4d8"
 
-            // Rectangle {
-            //     anchors.centerIn: parent
-            //     width: 1
-            //     height: parent.height - 16
-            //     radius: 1
-            //     color: "#d9dde3"
-            // }
-        }
-
-        BrowserSidebar {
-            SplitView.fillHeight: true
-            SplitView.minimumWidth: 176
-            SplitView.preferredWidth: 196
-            displayFont: window.displayFont
-            textFont: window.textFont
-            selectedIcon: window.selectedIcon
-            hasSelection: window.hasSelection
-            iconCount: window.iconCount
-            summaryText: searchText.length === 0
-                         ? "info.json metadata browser"
-                         : "showing " + iconCount + " results"
-            snippetText: window.iconSnippet(window.selectedIcon)
-            iconSize: window.iconSize
-            iconWeight: window.iconWeight
-            showIconName: window.showIconName
-            showCodepoint: window.showCodepoint
-
-            onIconSizeSelected: function(value) {
-                window.iconSize = value
+            LucideIcon {
+                id: searchIcon
+                anchors.left: parent.left
+                anchors.leftMargin: 16
+                anchors.verticalCenter: parent.verticalCenter
+                name: "search"
+                size: 20
+                color: "#71717a"
             }
 
-            onIconWeightSelected: function(value) {
-                window.iconWeight = value
-            }
+            TextInput {
+                id: search
+                anchors.left: searchIcon.right
+                anchors.leftMargin: 12
+                anchors.right: parent.right
+                anchors.rightMargin: 16
+                anchors.verticalCenter: parent.verticalCenter
+                font.pixelSize: 16
+                color: "#18181b"
+                clip: true
+                selectByMouse: true
+                onTextChanged: win.query = text.trim().toLowerCase()
 
-            onIconNameVisibilitySelected: function(value) {
-                window.showIconName = value
-            }
-
-            onCodepointVisibilitySelected: function(value) {
-                window.showCodepoint = value
+                Text {
+                    anchors.verticalCenter: parent.verticalCenter
+                    visible: search.text.length === 0
+                    text: qsTr("Search %1 icons…").arg(win.allIcons.length)
+                    font: search.font
+                    color: "#a1a1aa"
+                }
             }
         }
 
-        IconBrowserPane {
-            SplitView.fillWidth: true
-            SplitView.fillHeight: true
-            SplitView.minimumWidth: 420
-            textFont: window.textFont
-            searchText: window.searchText
-            visibleIcons: window.visibleIcons
-            selectedIcon: window.selectedIcon
-            iconSize: window.iconSize
-            iconWeight: window.iconWeight
-            showIconName: window.showIconName
-            showCodepoint: window.showCodepoint
+        // Icon grid
+        GridView {
+            id: grid
+            width: parent.width
+            height: parent.height - searchBox.height - parent.spacing
+            cellWidth: 84
+            cellHeight: 84
+            clip: true
+            boundsBehavior: Flickable.StopAtBounds
+            model: win.shown
 
-            onSearchChanged: function(text) {
-                window.searchText = text
-                window.applyFilter()
-            }
+            delegate: Item {
+                id: tile
+                required property string modelData
+                width: grid.cellWidth
+                height: grid.cellHeight
 
-            onIconChosen: function(icon) {
-                window.selectedIcon = icon
+                Rectangle {
+                    anchors.fill: parent
+                    anchors.margins: 5
+                    radius: 12
+                    color: hover.hovered ? "#f4f4f5" : "transparent"
+                    Behavior on color { ColorAnimation { duration: 90 } }
+                }
+
+                LucideIcon {
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    y: 22
+                    name: tile.modelData
+                    size: 26
+                    color: "#18181b"
+                }
+
+                Text {
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.bottom: parent.bottom
+                    anchors.bottomMargin: 12
+                    width: tile.width - 12
+                    visible: hover.hovered
+                    text: tile.modelData
+                    font.pixelSize: 10
+                    color: "#71717a"
+                    elide: Text.ElideRight
+                    horizontalAlignment: Text.AlignHCenter
+                }
+
+                HoverHandler { id: hover }
             }
         }
     }

@@ -12,8 +12,8 @@
   <img src="screenshot/icon-browser.png" alt="图标浏览器示例 —— 可搜索的全量 Lucide 图标网格,带实时 QML 代码片段" width="900">
 </p>
 
-内置的**图标浏览器**示例(`examples/icon-browser`)是一个可搜索的全量图标网格,可调节
-尺寸/字重,并提供可直接复制的 `LucideIcon { ... }` 代码片段。用
+内置的**图标浏览器**示例(`examples/icon-browser`)就是一个单文件 `Main.qml`:顶部一个
+搜索框,下面是全量图标的 `GridView`(悬停某个格子可看到它的名字)。用
 `-DLUCIDE_QTQUICK_BUILD_EXAMPLES=ON` 单独构建即可。
 
 ## 环境要求

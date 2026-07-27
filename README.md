@@ -9,6 +9,14 @@
 A [Lucide](https://lucide.dev) icon module for Qt Quick / QML, meant to be consumed
 from source in other Qt projects.
 
+<p align="center">
+  <img src="screenshot/icon-browser.png" alt="Icon browser example — searchable grid of all Lucide icons with a live QML snippet" width="900">
+</p>
+
+The bundled **icon browser** example (`examples/icon-browser`) is a searchable grid of
+all icons with adjustable size/weight and a copy-ready `LucideIcon { ... }` snippet.
+Build it standalone with `-DLUCIDE_QTQUICK_BUILD_EXAMPLES=ON`.
+
 ## Requirements
 
 - CMake 3.21+

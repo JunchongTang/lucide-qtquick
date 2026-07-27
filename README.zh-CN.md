@@ -8,6 +8,14 @@
 
 一个面向 Qt Quick / QML 的 [Lucide](https://lucide.dev) 图标模块,适合通过源码方式接入别的 Qt 工程。
 
+<p align="center">
+  <img src="screenshot/icon-browser.png" alt="图标浏览器示例 —— 可搜索的全量 Lucide 图标网格,带实时 QML 代码片段" width="900">
+</p>
+
+内置的**图标浏览器**示例(`examples/icon-browser`)是一个可搜索的全量图标网格,可调节
+尺寸/字重,并提供可直接复制的 `LucideIcon { ... }` 代码片段。用
+`-DLUCIDE_QTQUICK_BUILD_EXAMPLES=ON` 单独构建即可。
+
 ## 环境要求
 
 - CMake 3.21+

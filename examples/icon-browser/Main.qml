@@ -3,9 +3,12 @@ pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Window
 import LucideIcons
+import "assets/lucide_browser_data.js" as BrowserData
 
 // Minimal Lucide icon browser: a search box on top and a grid of every icon
 // below. Mirrors the layout of lucide.dev, kept to a single file for clarity.
+// The grid model is the generated data table (name/label/className/codepoint),
+// so the search matches names, labels, class names and unicode values alike.
 Window {
     id: win
     width: 960
@@ -14,11 +17,9 @@ Window {
     color: "#ffffff"
     title: qsTr("Lucide Icons")
 
-    readonly property var allIcons: Lucide.iconNames()
     property string query: ""
-    readonly property var shown: query.length === 0
-        ? allIcons
-        : allIcons.filter(function (n) { return n.indexOf(query) !== -1 })
+    readonly property int iconCount: BrowserData.icons.length
+    readonly property var shown: BrowserData.filteredIcons(query)
 
     Column {
         anchors.fill: parent
@@ -61,7 +62,7 @@ Window {
                 Text {
                     anchors.verticalCenter: parent.verticalCenter
                     visible: search.text.length === 0
-                    text: qsTr("Search %1 icons…").arg(win.allIcons.length)
+                    text: qsTr("Search %1 icons…").arg(win.iconCount)
                     font: search.font
                     color: "#a1a1aa"
                 }
@@ -73,15 +74,17 @@ Window {
             id: grid
             width: parent.width
             height: parent.height - searchBox.height - parent.spacing
-            cellWidth: 84
-            cellHeight: 84
+            // Fill the row exactly: pick a whole column count near ~84px, then
+            // divide the width by it so there is no leftover gap on the right.
+            cellWidth: width / Math.max(1, Math.round(width / 84))
+            cellHeight: cellWidth
             clip: true
             boundsBehavior: Flickable.StopAtBounds
             model: win.shown
 
             delegate: Item {
                 id: tile
-                required property string modelData
+                required property var modelData
                 width: grid.cellWidth
                 height: grid.cellHeight
 
@@ -96,7 +99,7 @@ Window {
                 LucideIcon {
                     anchors.horizontalCenter: parent.horizontalCenter
                     y: 22
-                    name: tile.modelData
+                    name: tile.modelData.name
                     size: 26
                     color: "#18181b"
                 }
@@ -107,7 +110,7 @@ Window {
                     anchors.bottomMargin: 12
                     width: tile.width - 12
                     visible: hover.hovered
-                    text: tile.modelData
+                    text: tile.modelData.name
                     font.pixelSize: 10
                     color: "#71717a"
                     elide: Text.ElideRight

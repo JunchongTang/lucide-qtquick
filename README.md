@@ -15,7 +15,9 @@ from source in other Qt projects.
 
 The bundled **icon browser** example (`examples/icon-browser`) is a single-file
 `Main.qml`: a search box on top and a `GridView` of every icon below (hover a tile to
-see its name). Build it standalone with `-DLUCIDE_QTQUICK_BUILD_EXAMPLES=ON`.
+see its name). The grid model is a generated data table, so the search matches names,
+labels, class names and codepoints. Build it standalone with
+`-DLUCIDE_QTQUICK_BUILD_EXAMPLES=ON`.
 
 ## Requirements
 

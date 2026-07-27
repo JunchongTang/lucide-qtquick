@@ -13,7 +13,8 @@
 </p>
 
 内置的**图标浏览器**示例(`examples/icon-browser`)就是一个单文件 `Main.qml`:顶部一个
-搜索框,下面是全量图标的 `GridView`(悬停某个格子可看到它的名字)。用
+搜索框,下面是全量图标的 `GridView`(悬停某个格子可看到它的名字)。网格的 model 是一份
+生成的数据表,所以搜索会同时匹配名字、标签、类名和码点。用
 `-DLUCIDE_QTQUICK_BUILD_EXAMPLES=ON` 单独构建即可。
 
 ## 环境要求

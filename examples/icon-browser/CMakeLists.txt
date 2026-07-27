@@ -7,6 +7,8 @@ qt_add_qml_module(LucideIconBrowser
     VERSION 1.0
     QML_FILES
         Main.qml
+    RESOURCES
+        assets/lucide_browser_data.js
 )
 
 target_link_libraries(LucideIconBrowser

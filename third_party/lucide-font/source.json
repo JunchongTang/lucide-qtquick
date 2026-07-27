@@ -1,0 +1,9 @@
+{
+  "source": "lucide",
+  "version": "1.8.0",
+  "releasedAt": "2026-04-09",
+  "releaseUrl": "https://github.com/lucide-icons/lucide/releases/tag/1.8.0",
+  "icons": 1695,
+  "glyphs": 1962,
+  "note": "Font generated from Lucide 1.8.0 via IcoMoon on 2026-04-09. 'glyphs' counts icons plus their aliases (IcoMoon expands each alias into its own glyph). The '1.0.0' string in the IcoMoon HTML pages is the IcoMoon set version, not the Lucide release."
+}

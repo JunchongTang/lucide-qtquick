@@ -82,6 +82,12 @@ You can also use the `Lucide` singleton:
 - `Lucide.hasGlyph(name)`
 - `Lucide.iconNames()`
 - `Lucide.family`
+- `Lucide.iconsVersion` — the bundled Lucide release (e.g. `"1.8.0"`)
+
+## Icon set
+
+Icons are bundled from **Lucide 1.8.0** (1695 icons; 1962 glyphs including aliases).
+Provenance is recorded in [`third_party/lucide-font/source.json`](third_party/lucide-font/source.json).
 
 ## Notes
 

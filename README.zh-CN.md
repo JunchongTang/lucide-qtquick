@@ -80,6 +80,12 @@ Rectangle {
 - `Lucide.hasGlyph(name)`
 - `Lucide.iconNames()`
 - `Lucide.family`
+- `Lucide.iconsVersion` —— 打包的 Lucide 版本(如 `"1.8.0"`)
+
+## 图标集
+
+图标打包自 **Lucide 1.8.0**(1695 个图标;含别名共 1962 个字形)。来源信息记录在
+[`third_party/lucide-font/source.json`](third_party/lucide-font/source.json)。
 
 ## 说明
 

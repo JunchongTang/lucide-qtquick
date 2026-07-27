@@ -2,6 +2,10 @@
 
 [English](README.md) | **简体中文**
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-informational.svg)](LICENSE)
+![Qt 6.5+](https://img.shields.io/badge/Qt-6.5%2B-41cd52.svg)
+![C++17](https://img.shields.io/badge/C%2B%2B-17-00599c.svg)
+
 一个面向 Qt Quick / QML 的 [Lucide](https://lucide.dev) 图标模块,适合通过源码方式接入别的 Qt 工程。
 
 ## 环境要求
@@ -74,4 +78,4 @@ Rectangle {
 
 ## 许可
 
-图标来自 [Lucide](https://lucide.dev)(ISC 许可证)。见 [LICENSE](LICENSE)。
+本模块以 [MIT 许可证](LICENSE)发布。图标字形来自 [Lucide](https://lucide.dev),采用 ISC 许可证。

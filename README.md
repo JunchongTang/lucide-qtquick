@@ -2,6 +2,10 @@
 
 **English** | [简体中文](README.zh-CN.md)
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-informational.svg)](LICENSE)
+![Qt 6.5+](https://img.shields.io/badge/Qt-6.5%2B-41cd52.svg)
+![C++17](https://img.shields.io/badge/C%2B%2B-17-00599c.svg)
+
 A [Lucide](https://lucide.dev) icon module for Qt Quick / QML, meant to be consumed
 from source in other Qt projects.
 
@@ -76,4 +80,5 @@ installable package.
 
 ## License
 
-Icons are from [Lucide](https://lucide.dev) (ISC License). See [LICENSE](LICENSE).
+This module is released under the [MIT License](LICENSE). The icon glyphs are from
+[Lucide](https://lucide.dev), licensed under ISC.
